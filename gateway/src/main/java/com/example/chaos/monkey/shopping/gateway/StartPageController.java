@@ -31,7 +31,7 @@ public class StartPageController implements ApplicationListener<WebServerInitial
 	private Function<ClientResponse, Mono<ProductResponse>> responseProcessor = clientResponse -> {
 		HttpHeaders headers = clientResponse.headers().asHttpHeaders();
 		if(headers.containsKey("fallback") && headers.get("fallback").contains("true")) {
-			return Mono.just(new ProductResponse(ResponseType.FALLBACK, Collections.emptyList()));
+			return Mono.just(new ProductResponse(ResponseType.FALLBACK, Collections.singletonList(getProduct())));
 		}
 		return clientResponse.bodyToFlux(productParameterizedTypeReference).collectList()
 				.flatMap(products -> Mono.just(new ProductResponse(ResponseType.REMOTE_SERVICE, products)));
@@ -43,12 +43,16 @@ public class StartPageController implements ApplicationListener<WebServerInitial
 
 		this.errorResponse = new ProductResponse();
 		errorResponse.setResponseType(ResponseType.ERROR);
-		ProductBuilder productBuilder = new ProductBuilder();
-
-		Product cachedResponse = productBuilder.setCategory(ProductCategory.BOOKS).setId(1L).setName("Cached Product")
-				.createProduct();
+		Product cachedResponse = getProduct();
 
 		errorResponse.setProducts(Collections.singletonList(cachedResponse));
+	}
+
+	private Product getProduct() {
+		ProductBuilder productBuilder = new ProductBuilder();
+
+		return productBuilder.setCategory(ProductCategory.BOOKS).setId(1L).setName("Cached Product")
+				.createProduct();
 	}
 
 
