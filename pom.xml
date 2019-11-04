@@ -19,7 +19,7 @@
 
     <properties>
         <!--Docker Container Image Prefix -->
-        <docker.image.prefix>ryanjbaxter</docker.image.prefix>
+        <docker.image.prefix>arau</docker.image.prefix>
         <docker-maven-plugin.version>0.31.0</docker-maven-plugin.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

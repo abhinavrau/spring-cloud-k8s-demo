@@ -1,5 +1,7 @@
 package com.example.chaos.monkey.shopping.gateway;
 
+import com.example.chaos.monkey.shopping.domain.ProductBuilder;
+import com.example.chaos.monkey.shopping.domain.ProductCategory;
 import reactor.core.publisher.Mono;
 
 import java.util.Collections;
@@ -39,7 +41,7 @@ public class GatewayApplication {
 	public RouteLocator defaultRoutes(RouteLocatorBuilder builder) {
 		return builder.routes()
 				.route(p -> p.path("/hotdeals**").filters(f ->
-						f.hystrix(c -> c.setName("hotdeals").setFallbackUri("forward:/fallback"))).uri("lb://hotdeals"))
+						f.hystrix(c -> c.setName("hotdeals").setFallbackUri("forward:/fallback"))).uri("lb://hot-deals"))
 				.route(p -> p.path("/fashion/**").filters(f ->
 						f.hystrix(c -> c.setName("fashion").setFallbackUri("forward:/fallback"))).uri("lb://fashion-bestseller"))
 				.route(p -> p.path("/toys/**").filters(f ->
@@ -65,7 +67,12 @@ public class GatewayApplication {
 		System.out.println("fallback enabled");
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("fallback", "true");
-		return ResponseEntity.ok().headers(headers).body(Collections.emptyList());
+		ProductBuilder productBuilder = new ProductBuilder();
+
+		Product cachedResponse = productBuilder.setCategory(ProductCategory.BOOKS).setId(1L).setName("Cached Product")
+				.createProduct();
+
+		return ResponseEntity.ok().headers(headers).body(Collections.singletonList(cachedResponse));
 	}
 
 }

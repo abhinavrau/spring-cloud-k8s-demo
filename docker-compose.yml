@@ -2,15 +2,7 @@ version: '3'
 
 services:
   docker-base-image:
-    build: docker-base-image/
-    image: docker-base-image
-
-  chaostoolkit:
-    container_name: chaostoolkit
-    build: chaostoolkit-base/
-    tty: true
-    depends_on:
-      - docker-base-image
+    image: springcloud/openjdk:latest
 
   chaoshub:
     image: chaostoolkit/chaoshub:0.1.2
@@ -23,20 +15,20 @@ services:
 
   api-gateway:
     container_name: api-gateway
-    image: api-gateway
+    image: arau/gateway
     # need NET_ADMIN to run chaos linux experiments
     cap_add:
      - NET_ADMIN
     ports:
-    - "8080:8080"
+    - "8080:8070"
     volumes:
       - ./chaos-scripts:/var/chaosscripts
     depends_on:
       - docker-base-image
 
   fashion:
-    container_name: fashion
-    image: bestseller-fashion
+    container_name: fashion-bestseller
+    image: arau/fashion-bestseller
     # need NET_ADMIN to run chaos linux experiments
     cap_add:
      - NET_ADMIN
@@ -48,7 +40,7 @@ services:
       - docker-base-image
 
   toys:
-    image: bestseller-toys
+    image: arau/toys-bestseller
     container_name: toys
     # need NET_ADMIN to run chaos linux experiments
     cap_add:
@@ -61,7 +53,7 @@ services:
       - docker-base-image
 
   hot-deals:
-    image: hot-deals
+    image: arau/hot-deals
     container_name: hot-deals
     # need NET_ADMIN to run chaos linux experiments
     cap_add:
@@ -74,7 +66,7 @@ services:
       - docker-base-image
 
   eureka-server:
-    image: eureka-server
+    image: springcloud/eureka
     container_name: eureka-server
     # need NET_ADMIN to run chaos linux experiments
     cap_add:

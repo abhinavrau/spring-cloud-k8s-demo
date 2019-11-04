@@ -1,5 +1,7 @@
 package com.example.chaos.monkey.shopping.gateway;
 
+import com.example.chaos.monkey.shopping.domain.ProductBuilder;
+import com.example.chaos.monkey.shopping.domain.ProductCategory;
 import reactor.core.publisher.Mono;
 
 import java.util.Collections;
@@ -41,7 +43,12 @@ public class StartPageController implements ApplicationListener<WebServerInitial
 
 		this.errorResponse = new ProductResponse();
 		errorResponse.setResponseType(ResponseType.ERROR);
-		errorResponse.setProducts(Collections.emptyList());
+		ProductBuilder productBuilder = new ProductBuilder();
+
+		Product cachedResponse = productBuilder.setCategory(ProductCategory.BOOKS).setId(1L).setName("Cached Product")
+				.createProduct();
+
+		errorResponse.setProducts(Collections.singletonList(cachedResponse));
 	}
 
 
