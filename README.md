@@ -20,11 +20,11 @@ To create the YAML files all you need to do is run `./mvnw clean package`.  The 
 `/<module>/target/classes/META-INF/dekorate`.  
 
 ```
-kubectl create --filename spring-cloud-k8s-demo/toys-bestseller/configmap.yml
-kubectl create --filename spring-cloud-k8s-demo/toys-bestseller/target/classes/META-INF/dekorate/kubernetes.yml
-kubectl create --filename spring-cloud-k8s-demo/fashion-bestseller/target/classes/META-INF/dekorate/kubernetes.yml
-kubectl create --filename spring-cloud-k8s-demo/hot-deals/target/classes/META-INF/dekorate/kubernetes.yml
-kubectl create --filename spring-cloud-k8s-demo/gateway/target/classes/META-INF/dekorate/kubernetes.yml
+kubectl create --filename sc-2019/toys-bestseller/configmap.yml
+kubectl create --filename sc-2019/toys-bestseller/target/classes/META-INF/dekorate/kubernetes.yml
+kubectl create --filename sc-2019/fashion-bestseller/target/classes/META-INF/dekorate/kubernetes.yml
+kubectl create --filename sc-2019/hot-deals/target/classes/META-INF/dekorate/kubernetes.yml
+kubectl create --filename sc-2019/gateway/target/classes/META-INF/dekorate/kubernetes.yml
 ```
 
 ## Testing The Apps
