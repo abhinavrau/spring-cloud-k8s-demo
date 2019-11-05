@@ -1,0 +1,12 @@
+---
+applications:
+  - name: shopping-gateway
+    path: target/gateway-1.0-SNAPSHOT.jar
+    timeout: 180
+    instances: 1
+    memory: 1G
+    services:
+      - service-registry
+      - circuit-breaker-dashboard
+    build_packs:
+      - java_buildpack

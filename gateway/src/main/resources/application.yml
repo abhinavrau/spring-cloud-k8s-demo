@@ -1,4 +1,7 @@
 management:
+  health:
+    binders:
+      enabled: false
   endpoints:
     web:
       exposure:
@@ -6,6 +9,8 @@ management:
 server:
   port: 8070
 spring:
+  main:
+    allow-bean-definition-overriding: true
   application:
     name: gateway
   cloud:

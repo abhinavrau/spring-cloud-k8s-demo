@@ -1,0 +1,11 @@
+---
+applications:
+  - name: fashion-bestseller
+    path: target/fashion-bestseller-1.0-SNAPSHOT.jar
+    timeout: 180
+    instances: 1
+    memory: 1G
+    services:
+      - service-registry
+    build_packs:
+      - java_buildpack
