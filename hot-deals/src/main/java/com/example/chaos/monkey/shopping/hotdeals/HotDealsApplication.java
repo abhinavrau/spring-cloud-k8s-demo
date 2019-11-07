@@ -16,17 +16,17 @@ public class HotDealsApplication {
 		SpringApplication.run(HotDealsApplication.class, args);
 	}
 }
-//@Configuration
-//@Profile("cloud")
-//class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-//
-//	@Override
-//	protected void configure(HttpSecurity http) throws Exception {
-//		http
-//				.authorizeRequests().anyRequest().permitAll()
-//				.and()
-//				.httpBasic().disable()
-//				.csrf().disable();
-//	}
-//
-//}
+@Configuration
+@Profile("cloud")
+class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http
+				.authorizeRequests().anyRequest().permitAll()
+				.and()
+				.httpBasic().disable()
+				.csrf().disable();
+	}
+
+}
