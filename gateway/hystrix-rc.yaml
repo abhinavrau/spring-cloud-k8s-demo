@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: "hystrixdashboard"
+spec:
+  replicas: 1
+  selector:
+    app: "hystrix-dashboard"
+    version: "v1"
+  template:
+    metadata:
+      labels:
+        app: "hystrix-dashboard"
+        version: "v1"
+    spec:
+      containers:
+        - name: "hystrix-dashboard"
+          image: "raffaelespazzoli/kubernetes-hystrix-dashboard:0.0.2"
+          env:
+            - name: "namespace"
+              valueFrom:
+                fieldRef:
+                  fieldPath: "metadata.namespace"
+            - name: "selector_key"
+              value: "app"
+            - name: "selector_value"
+              value: "gateway"
+            - name: "hystrix_cluster_name"
+              value: "docker-desktop"
+          ports:
+            - containerPort: 8080
+              name: "hdashboard"
+              protocol: "TCP"
